@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Radiance - Современный и понятный подход к дизайну, коммуникации и веб-разработке</title>
+    <meta name="description" content="Стремимся понять потребность клиента и дать ему, не просто результат, а открыть новые возможности и видение своего продукта и бизнеса.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/src/css/reset.css">
+    <link rel="stylesheet" href="/src/css/radiance.css">
+    <link href="/static/pic/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="/static/pic/webclip.png" rel="apple-touch-icon" />
+    <script src="/src/js/libs/gsap.min.js"></script>
+    <script defer src="/src/js/libs/ScrollTrigger.min.js"></script>
+    <script defer src="/src/js/libs/three.min.js"></script>
+    <script defer src="/src/js/libs/GLTFLoader.js"></script>
+    <script defer src="/src/js/libs/ScrollToPlugin.min.js"></script>
+    <script defer src="/src/js/libs/TextPlugin.min.js"></script>
+    <script defer src="/src/js/libs/lottie.min.js"></script>
+    <script defer src="/src/js/libs/matter.min.js"></script>
+    <script defer src="/src/js/libs/luxon.min.js"></script>
+    <script defer src="/src/js/libs/lenis.min.js"></script>
+    <script defer src="/src/js/libs/splittype.min.js"></script>
+    <script defer src="/src/js/js-bundle.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q95NQS2Q0W"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q95NQS2Q0W');
+    </script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+        ym(98861322, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98861322" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+    <h1 style="position: absolute; z-index: -2; pointer-events: none; color: #F3F3EF;">Современный и понятный подход к дизайну, коммуникации и веб-разработке</h1>
+    <!-- Preloader Zooone -->
+    <div id="preloader-wrapper" class="preloader-wrapper">
+        <div id="preloader-counter" class="preloader-counter">
+            <div id="counter1"><img id="counter1-pic" class="counter-pic" src="/static/pic/counter-1.svg" loading="eager"
+                    alt="Counter 1" />
+            </div>
+            <div id="counter2"><img class="counter-pic" src="/static/pic/counter-2.svg" loading="eager" alt="Counter 2" />
+            </div>
+            <div id="counter3"><img class="counter-pic" src="/static/pic/counter-3.svg" loading="eager" alt="Counter 3" />
+            </div>
+        </div>
+        <div class="preloader-halo-mobile">
+            <img src="/static/halo.png">
+        </div>
+        <div id="preloader-background" class="preloader-background"></div>
+    </div>
+    <script>
+    //PRELOADER ANIMATION
+    const   PRELOADER_BACKGROUND = "#preloader-background",
+            PRELOADER_CONTAINER = "#preloader-wrapper",
+            COUNTER_CONTAINER = "#preloader-counter",
+            COUNTER_ELEMENT = [
+                document.getElementById("counter1"),
+                document.getElementById("counter2"),
+                document.getElementById("counter3")
+            ],
+            REFERENCE = document.getElementById("counter1-pic");
+    var numberHeight = REFERENCE.offsetHeight/2;
+    var counterIndex = 1;
+    var pageIsDone = false;
+
+    if (window.matchMedia("(min-width: 768px)").matches) {
+
+        if (numberHeight == 0) { numberHeight = 284 / 2; }
+
+        var preloaderFinalState = gsap.timeline({
+            onComplete: () => { preloaderIsDone = true }
+        });
+
+
+        preloaderFinalState
+            .to(PRELOADER_BACKGROUND, {
+                yPercent: -100,
+                duration: 1.4,
+                ease: "power3.inOut"
+            }, "<")
+
+            .to(COUNTER_CONTAINER, {
+                yPercent: 150,
+                ease: "power1.inOut"
+            })
+            .to(PRELOADER_CONTAINER, {
+                autoAlpha: 0,
+                ease: "power2.inOut"
+            }, "<")
+            .set(PRELOADER_CONTAINER, {
+                yPercent: -100
+        }).pause();
+
+
+        function preloaderLoop() { 
+        //  create a loop function
+        setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+            
+            gsap.to(COUNTER_ELEMENT[2], {
+                y: -numberHeight*counterIndex*3,
+                duration: 0.2,
+                ease: "power4.inOut"
+            });
+            gsap.to(COUNTER_ELEMENT[1], {
+                y: -numberHeight*counterIndex,
+                duration: 0.3,
+                ease: "power3.inOut"
+            });
+
+            counterIndex++; 
+
+            if (pageIsDone || counterIndex == 10) {
+                //console.log('readyState:' + document.readyState);
+                gsap.to(COUNTER_ELEMENT[2], {
+                    y: -numberHeight*30,
+                    duration: 0.3,
+                    ease: "power4.inOut"
+                });
+                gsap.to(COUNTER_ELEMENT[1], {
+                    y: -numberHeight*10,
+                    duration: 0.5,
+                    ease: "power3.inOut"
+                })
+                gsap.to(COUNTER_ELEMENT[0], {
+                    y: -numberHeight,
+                    duration: 0.3,
+                    ease: "power2.inOut"
+                });
+                preloaderFinalState.play();
+            } 
+            else if (counterIndex < 10) { preloaderLoop(); }                
+
+        }, 600);
+
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            pageIsDone = true;
+        });
+
+        preloaderLoop();  
+
+    } 
+    else {
+        gsap.to(".preloader-halo-mobile", {
+            "--shadowPreloader": "3em",
+            yoyo: true,
+            repeat: -1,
+            duration: 1
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            gsap.to(".preloader-wrapper", {
+                xPercent: -100
+            });
+            preloaderIsDone = true;
+        });
+    }
+    </script>
+    <!-- Preloader Zooone -->
+
+    <!-- Header Layout -->
+    <header>
+        <nav>
+            <div class="brief-link">
+                <svg id="brief-star" width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.5741 8.14577C11.578 6.31677 11.578 4.48781 11.5741 2.6588C11.476 2.66862 11.3776 2.6775 11.2789 2.68638C10.8125 2.7284 10.3429 2.7707 9.89837 2.91479C9.62533 3.11406 9.43886 3.38464 9.2548 3.65174C9.22215 3.69912 9.18938 3.74667 9.15641 3.79342C8.46095 4.84078 7.92637 5.97153 7.49437 7.12945C8.78455 7.66865 10.1542 8.06237 11.5741 8.14577Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M15.8183 7.38435C15.4091 7.5367 15.0004 7.68889 14.5712 7.78766C13.8719 7.96416 13.1551 8.07855 12.4344 8.14062C12.4306 6.30968 12.4286 4.47683 12.4344 2.64589C12.7859 2.67076 13.1337 2.72531 13.4818 2.7799C13.7037 2.81469 13.9257 2.84951 14.1489 2.87668C15.1485 4.18006 16.0008 5.60953 16.4502 7.1573C16.2376 7.22825 16.0279 7.30632 15.8183 7.38435Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M7.85778 4.50678C7.93159 4.36117 8.01836 4.22136 8.10509 4.08162C8.24825 3.85095 8.39129 3.62046 8.47574 3.3644C7.11001 3.82795 5.98258 4.74537 5.04885 5.75006C5.61064 6.15155 6.19565 6.5278 6.82136 6.83619C7.04719 6.02068 7.45188 5.26485 7.85338 4.515L7.85778 4.50678Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M18.5808 6.00237C18.1229 6.2953 17.6655 6.588 17.1776 6.83619L17.1078 6.65537C16.845 5.97366 16.5808 5.28837 16.2071 4.65224C16.1292 4.49689 16.0377 4.34731 15.9464 4.19781C15.7833 3.93108 15.6205 3.66464 15.5348 3.36634C16.4783 3.69412 17.288 4.26823 18.0454 4.86755C18.3825 5.13327 18.6499 5.46301 18.9036 5.79661C18.7957 5.86483 18.6882 5.93361 18.5808 6.00237Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M6.51524 7.7302C6.58111 7.53819 6.36413 7.42375 6.21303 7.34423C5.62994 7.04942 5.07203 6.71581 4.52187 6.37251C3.74893 7.48194 3.18519 8.70967 2.91205 10.0034C2.86434 10.3189 2.82723 10.6369 2.79014 10.9547C2.77002 11.1271 2.74987 11.2997 2.72807 11.4716C3.81677 11.4736 4.90545 11.4736 5.99415 11.4716C5.98447 10.209 6.23823 8.96376 6.51524 7.7302Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M18.016 11.4726C17.9812 10.1459 17.7584 8.83479 17.4349 7.54305C17.9191 7.30394 18.377 7.02844 18.8353 6.75268C19.0462 6.62581 19.2572 6.49889 19.4708 6.37543C20.5266 7.8941 21.2065 9.65329 21.1988 11.4707C20.1372 11.4745 19.0757 11.4745 18.016 11.4726Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M8.81364 8.42613C8.53122 8.34929 8.25799 8.24864 7.98452 8.14791C7.74029 8.05794 7.49581 7.96789 7.2445 7.89469C6.95779 9.06812 6.79121 10.2687 6.77959 11.4712C8.37777 11.4732 9.9778 11.4732 11.5779 11.4712L11.5779 11.3078C11.5781 10.4994 11.5782 9.69256 11.5528 8.88578C10.6307 8.7888 9.71056 8.65693 8.81364 8.42613Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M15.8143 8.21898C16.1107 8.10842 16.4051 7.99978 16.7073 7.90475C17.0511 8.93904 17.0945 10.0248 17.1375 11.099C17.1424 11.2232 17.1474 11.3478 17.1528 11.4716C15.5779 11.4736 14.0049 11.4736 12.43 11.4716C12.43 10.6066 12.43 9.73957 12.4338 8.87452L12.678 8.84739C13.7415 8.72973 14.8247 8.6099 15.8143 8.21898Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M5.97359 12.4732C4.89651 12.4441 3.81945 12.4538 2.74431 12.4829C2.77056 12.6868 2.79187 12.8914 2.8132 13.0962C2.8501 13.4505 2.88705 13.8052 2.94966 14.1567C3.25574 15.3845 3.79428 16.5618 4.55172 17.613C5.20649 17.1902 5.87475 16.7848 6.55276 16.395C6.25056 15.1052 5.94647 13.8018 5.97359 12.4732Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M11.5758 12.5182C11.5758 13.3636 11.5758 14.2073 11.5739 15.0529C10.059 15.0916 8.63513 15.5862 7.24422 16.0905C6.93621 14.9132 6.85287 13.701 6.77345 12.4985C7.93037 12.4438 9.08831 12.4499 10.2458 12.456C10.6889 12.4584 11.1328 12.4607 11.5758 12.4596V12.5182Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M12.4346 15.0602C13.9224 15.1087 15.3327 15.5742 16.6965 16.0882C17.0936 14.9147 17.142 13.6772 17.1517 12.4573C15.5787 12.4553 14.0038 12.4553 12.4308 12.4573C12.4308 13.3242 12.4308 14.1932 12.4346 15.0602Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M17.4493 16.4241C17.7399 15.1168 17.9511 13.794 18.0112 12.4577C18.3634 12.4596 18.7159 12.4585 19.0684 12.4575C19.7744 12.4553 20.4816 12.4532 21.1882 12.4751C21.2463 14.3061 20.5044 16.0769 19.468 17.613C19.1853 17.4534 18.9093 17.2834 18.6332 17.1133C18.2452 16.8742 17.8568 16.6349 17.4493 16.4241Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M7.47913 16.802C7.96536 18.1655 8.64724 19.4669 9.49379 20.6714L9.52379 20.7129C9.63511 20.8675 9.75606 21.0355 9.95681 21.0942C10.4779 21.2494 11.0301 21.3056 11.5725 21.3483C11.5764 19.5193 11.5764 17.6903 11.5725 15.8613C10.1603 15.9544 8.77317 16.2744 7.47913 16.802Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M12.4336 21.3372C12.4278 19.5082 12.4298 17.6792 12.4336 15.8502C13.8207 15.9511 15.1942 16.273 16.4631 16.8025C16.0369 18.2436 15.262 19.5722 14.3806 20.8194C14.2702 20.959 14.1384 21.1045 13.9233 21.1025C13.5281 21.2185 13.116 21.2629 12.705 21.3072C12.6145 21.3169 12.5239 21.3267 12.4336 21.3372Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M6.83004 17.1678C6.19464 17.449 5.59794 17.7981 5.0439 18.1958C5.92532 19.2509 7.11287 20.0694 8.4321 20.6124C8.37976 20.3334 8.22932 20.0865 8.07955 19.8407C8.02421 19.7499 7.96894 19.6591 7.91876 19.567C7.48289 18.799 7.1148 17.996 6.83004 17.1678Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path
+                        d="M17.6195 17.395C18.0164 17.5963 18.4156 17.7987 18.7542 18.0741L18.7329 18.4523C17.8476 19.3639 16.7666 20.1339 15.5307 20.6033C15.6231 20.3368 15.7681 20.0926 15.9126 19.8491C15.9437 19.7967 15.9748 19.7443 16.0053 19.6917C16.4644 18.879 16.85 18.0314 17.1793 17.1664C17.3235 17.2449 17.4714 17.3199 17.6195 17.395Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M23.9529 10.9915C23.8754 10.3766 23.7804 9.76178 23.6603 9.15082C23.0443 6.55181 21.4906 4.13897 19.2687 2.43022C18.1819 1.66797 17.0235 0.940637 15.6965 0.585698C14.4315 0.186149 13.0968 -0.0621051 11.7524 0.0135377C9.35417 0.0484497 6.98883 0.818467 5.09038 2.16064C2.23496 4.1739 0.410092 7.33342 0.0710831 10.6171C-0.252428 13.6622 0.522472 16.8683 2.51584 19.349C4.29225 21.7075 7.12444 23.3503 10.1871 23.8643C13.8078 24.4326 17.6434 23.1816 20.1753 20.761C22.9261 18.2337 24.2764 14.537 23.9529 10.9915ZM22.5697 12.3938C22.4418 15.241 21.0994 18.034 18.8522 20.0026C18.0793 20.5981 17.2696 21.1702 16.3649 21.5872L16.2757 21.6207C15.1576 22.0409 14.0192 22.4686 12.7926 22.4988C9.8229 22.751 6.80669 21.6163 4.75714 19.6496C2.03151 17.0681 0.826569 13.187 1.69831 9.67643C2.17486 7.41685 3.51155 5.32986 5.36157 3.78791C6.16357 3.1401 7.09537 2.63775 8.04072 2.18972C9.19529 1.75526 10.4351 1.50505 11.6807 1.4585C13.091 1.3848 14.4858 1.68543 15.7973 2.13734C17.4942 2.84916 19.0343 3.91012 20.1385 5.30466C21.8433 7.3024 22.6065 9.88009 22.5697 12.3938Z"
+                        fill="currentColor" shape-rendering="geometricPrecision" />
+                </svg>
+                <a id="brief-button" class="animated-link" href="/brief/?lang=ru" target="_blank">
+                    <span>ЗАПОЛНИТЬ БРИФ</span>
+                </a>
+            </div>
+            <!--<a id="lang-pick" class="animated-link"><span>DEUTSCH</span></a>-->
+            <div class="nav-end">
+                <a id="menu-button" class="animated-link"><span id="menu-button-text">МЕНЮ</span></a>
+            </div>
+
+        </nav>
+    </header>
+    <!-- Header Layout -->
+
+    <!-- Halo -->
+    <div class="halo-container">
+        <div class="threejs-wrapper"></div>
+    </div>
+    <div class="halo-container difference">
+        <div id="tap-halo-desktop" class="tap-halo">♪ TAP HALO ♪</div>
+    </div>
+    <!-- Halo -->
+
+    <!-- Menu Section -->
+    <section id="menu-section" class="menu">
+        <div class="menu-popup-layout">
+            <div class="menu-content">
+                <div class="menu-items">
+                    <a id="anchor-main" class="animated-menu-link">
+                        <h2>Главная</h2>
+                    </a>
+                    <a id="anchor-meet" class="animated-menu-link">
+                        <h2>О нас</h2>
+                    </a>
+                    <a id="anchor-approach" class="animated-menu-link">
+                        <h2>Наш подход</h2>
+                    </a>
+                    <a id="anchor-works" class="animated-menu-link">
+                        <h2>Избранные работы</h2>
+                    </a>
+                    <a id="anchor-contacts" class="animated-menu-link">
+                        <h2>Контакты</h2>
+                    </a>
+                </div>
+                <div class="menu-divider"></div>
+                <div class="menu-links">
+                    <div class="link-item menu-anim-link">
+                        <svg class="arrow-svg-icon" width="12" height="12" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z" fill="#1A1A1A" style="fill:#1A1A1A;fill:color(display-p3 0.1000 0.1000 0.1000);fill-opacity:1;"/>
+                        </svg>
+                        <a href="mailto:hello@radiance.family?subject=Let's%20work%20together" class="animated-link">
+                            <span>HELLO@RADIANCE.FAMILY</span>
+                        </a>
+                    </div>
+                    <div class="link-item menu-anim-link">
+                        <svg class="arrow-svg-icon" width="12" height="12" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z" fill="#1A1A1A" style="fill:#1A1A1A;fill:color(display-p3 0.1000 0.1000 0.1000);fill-opacity:1;"/>
+                        </svg>
+                        <a href="https://t.me/Arturkay" target="_blank" class="animated-link"><span>TELEGRAM</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="menu-background" class="menu-background"></div>
+    <div id="menu-backdrop" class="menu-backdrop bg-noise"></div>
+
+    <!-- Menu for Mobile -->
+    <section class="mobile-menu">
+        <div class="mobile-menu-layout">
+            <div class="top-spacer"></div>
+            <div class="menu-items">
+                <a class="animated-menu-link" id="anchor-main-m">
+                    <h3>Главная</h3>
+                </a>
+                <a class="animated-menu-link" id="anchor-meet-m">
+                    <h3>О нас</h3>
+                </a>
+                <a class="animated-menu-link" id="anchor-approach-m">
+                    <h3>Наш подход</h3>
+                </a>
+                <a class="animated-menu-link" id="anchor-works-m">
+                    <h3>Избранные работы</h3>
+                </a>
+                <a class="animated-menu-link" id="anchor-contacts-m">
+                    <h3>Контакты</h3>
+                </a>
+            </div>
+            <div class="menu-link-buttons">
+                <a href="mailto:HELLO@radiance.family?subject=WE%20HAVE%20A%20PROJECT"
+                    class="menu-button-link blue-accent menu-button-top">
+                    <div class="text-block">HELLO@RADIANCE.FAMILY</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/designbyradiance/" target="_blank" class="menu-button-link menu-button-top">
+                    <div class="text-block">INSTAGRAM</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+
+                </a>
+                <a href="https://t.me/Arturkay" target="_blank" class="menu-button-link menu-button-top">
+                    <div class="text-block">TELEGRAM</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="https://www.behance.net/radiancefamily" target="_blank" class="menu-button-link menu-button-top">
+                    <div class="text-block">BEHANCE</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Website -->
+    <main>
+        <section id="hero-section" class="hero-section">
+            <div class="heading-wrapper">
+                <h2 class="hero-heading">
+                    <span class="not-hoverable">Живём свои лучшие жизни, совершенствуясь в</span><br />
+                    <span class="heading-link">бренд коммуникации,</span>
+                    <span class="heading-link">дизайне,</span> <span class="heading-link"> и веб-разработке</span>
+                    <div class="hero-mask">
+                        <div class="hero-mask-part"></div>
+                        <div class="hero-mask-part"></div>
+                    </div>
+                </h2>
+                <h2 class="hero-heading-mobile">Живём свои лучшие жизни, совершенствуясь бренд коммуникации, дизайне, и веб-разработке</h2>
+            </div>
+            <div class="bottom-wrapper">
+                <div class="bottom-links-wrapper">
+                    <div>
+                        <div class="welcome" id="local-time">ПОН 04:20:00</div>
+                        <div class="welcome" id="local-place">ТБИЛИСИ, ГРУЗИЯ</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="descriptor">
+                        <div class="welcome">КОММУНИКАЦИОННОЕ АГЕНТСТВО</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div>
+                        <a href="https://www.behance.net/Radiancefamily" target="_blank" class="animated-link welcome">
+                            <span>BEHANCE</span>
+                        </a>
+                        <a href="https://www.instagram.com/designbyradiance/" target="_blank"
+                            class="animated-link welcome">
+                            <span>INSTAGRAM</span>
+                        </a>
+                        <a href="https://dprofile.ru/radiance" target="_blank" class="animated-link welcome">
+                            <span>DPROFILE</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="letters-wrapper">
+                    <div id="letter-r" class="letter-container">
+                        <svg width="14.9375em" height="16.6875em" viewBox="0 0 239 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0 266.058V0H134.976C193.73 0 230.65 28.1942 230.65 78.229C230.65 121.513 203.258 147.325 155.223 149.707V152.884C176.66 159.635 187.379 172.739 197.303 192.197L238.59 266.058H189.761L149.268 194.58C136.564 171.548 126.242 160.826 95.2773 160.826H42.8748V266.058H0ZM42.8748 128.264H137.755C175.072 128.264 187.776 115.557 187.776 83.3913C187.776 52.0203 175.072 38.5188 137.755 38.5188H42.8748V128.264Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-a" class="letter-container">
+                        <svg width="18.4375em" height="16.6875em" viewBox="0 0 295 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M244.545 266.058L215.168 196.962H78.2068L48.8296 266.058H0L116.318 0H177.851L294.169 266.058H244.545ZM94.8803 158.443H198.891L162.765 73.8609L148.474 39.7101H145.298L131.006 73.8609L94.8803 158.443Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-d" class="letter-container">
+                        <svg width="15.875em" height="16.6875em" viewBox="0 0 254 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M118.7 0C201.273 0 253.279 50.829 253.279 133.029C253.279 215.229 201.273 266.058 118.7 266.058H0V0H118.7ZM118.7 227.539C182.615 227.539 207.625 201.33 207.625 133.029C207.625 64.7275 182.615 38.5188 118.7 38.5188H42.8748V227.539H118.7Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-i" class="letter-container">
+                        <svg width="2.6875em" height="16.6875em" viewBox="0 0 43 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 266.058V0H42.8748V266.058H0Z" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-a-s" class="letter-container">
+                        <svg width="18.4375em" height="16.6875em" viewBox="0 0 295 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M244.545 266.058L215.168 196.962H78.2068L48.8296 266.058H0L116.318 0H177.851L294.169 266.058H244.545ZM94.8803 158.443H198.891L162.765 73.8609L148.474 39.7101H145.298L131.006 73.8609L94.8803 158.443Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-n" class="letter-container">
+                        <svg width="15.0625em" height="16.6875em" viewBox="0 0 241 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0 266.058V0H46.0508L194.922 199.742H197.7V0H240.575V266.058H194.525L45.6537 69.4928H42.8749V266.058H0Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-c" class="letter-container">
+                        <svg width="16.5em" height="16.6875em" viewBox=" 0 0 264 274" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M134.976 274C53.9905 274 0 219.994 0 137C0 54.0058 53.9905 0 134.976 0C215.168 0 263.997 39.7101 263.997 103.643V108.806H218.741V103.643C218.741 59.9623 194.128 41.6956 134.976 41.6956C72.649 41.6956 45.6537 67.9044 45.6537 137C45.6537 206.096 72.649 232.304 134.976 232.304C194.128 232.304 218.741 214.038 218.741 170.357V165.194H263.997V170.357C263.997 234.29 215.565 274 134.976 274Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div id="letter-e" class="letter-container">
+                        <svg width="13.125em" height="16.6875em" viewBox="0 0 210 267" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M209.61 38.5188H42.8749V112.777H203.655V151.693H42.8749V227.539H209.61V266.058H0V0H209.61V38.5188Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="sprite-wrapper">
+                    <div class="sprite-container">
+                        <img class="sprite" src="/static/pic/sprites/R.avif" loading="eager" alt="R Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="A Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="D Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="I Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="A Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="N Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="C Letter" />
+                    </div>
+                    <div class="sprite-container">
+                        <img class="sprite" loading="lazy" alt="E Letter" />
+                    </div>
+                </div>
+            </div>
+            <div class="background-video-wrapper">
+                <video id="background-video-1" preload="none" loop muted playsinline disablepictureinpicture controlslist="nodownload">
+                    <source src="/static/video/branding-portfolio.webm" type="video/webm" />
+                    <source src="/static/video/branding-portfolio.mp4" type="video/mp4" />
+                </video>
+                <video id="background-video-2" preload="none" loop muted playsinline disablepictureinpicture controlslist="nodownload">
+                    <source src="/static/video/ads-portfolio.webm" type="video/webm" />
+                    <source src="/static/video/ads-portfolio.mp4" type="video/mp4" />
+                </video>
+                <video id="background-video-3" preload="none" loop muted playsinline disablepictureinpicture controlslist="nodownload">
+                    <source src="/static/video/web-portfolio.webm" type="video/webm" />
+                    <source src="/static/video/web-portfolio.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mobile-letters-lottie-container"></div>
+        </section>
+
+        <section id="presentation-section" class="presentation-section">
+            <div class="presentation-wrapper">
+                <div class="slides-layout">
+                    <div id="greetings-slide" class="slide first">
+                        <div class="team-heading">
+                            <!--<div class="heading-label">ПРИВЕТСТВУЕМ</div>-->
+                            <h2>ПРОЕКТИРУЕМ, СОЗДАЁМ, <br />ВОВЛЕКАЕМ — БОЛЕЕ 8 ЛЕТ <br /> НА ЯЗЫКЕ ДИЗАЙНА</h2>
+                        </div>
+                        <div class="team-background">
+                            <img src="/static/pic/radiance-team.avif" loading="lazy" alt="Radiance Team" class="image" />
+                        </div>
+                    </div>
+                    <div id="about-slide" class="slide middle">
+                        <div class="about-layout">
+                            <div class="infinite-text">
+                                <div class="infinite-text-wrapper top">
+                                    <div class="infinite-text-item infinite-text-top">СТАРТАПЫ</div>
+                                    <div class="infinite-text-item infinite-text-top">КОРПОРАЦИИ</div>
+                                    <div class="infinite-text-item infinite-text-top">ОБРАЗОВАНИЕ</div>
+                                    <div class="infinite-text-item infinite-text-top">
+                                        ПРЕДПРИЯТИЯ
+                                    </div>
+                                    <div class="infinite-text-item infinite-text-top">
+                                        ДИДЖИТАЛ&nbsp;АГЕНСТВА
+                                    </div>
+                                    <div class="infinite-text-item infinite-text-top">РИТЕЙЛ</div>
+                                    <div class="infinite-text-item infinite-text-top">
+                                        МЕДИА&nbsp;СТУДИИ
+                                    </div>
+                                    <div class="infinite-text-item infinite-text-top">SAAS</div>
+                                    <div class="infinite-text-item infinite-text-top">ФИНТЕХ</div>
+                                    <div class="infinite-text-item infinite-text-top">ФУДТЕХ</div>
+                                    <div class="infinite-text-item infinite-text-top">
+                                        СТРОИТЕЛЬНЫЙ&nbsp;БИЗНЕС
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="about-content">
+                                <h2 id="about-header">
+                                    ВОТ С КЕМ УЖЕ ПЕРЕСЕКАЛИСЬ <br /> НАШИ МАРШРУТЫ
+                                </h2>
+                                <div class="partner-branding">
+                                    <img src="/static/pic/logo10.png" loading="lazy" width="200" alt="" />
+                                    <img src="/static/pic/logo11.png" loading="lazy" alt="" width="120" />
+                                    <img src="/static/pic/logo03.webp" loading="lazy" alt="" width="69.5" />
+                                    <img src="/static/pic/logo04.webp" loading="lazy" alt="" width="124.5" />
+                                    <img src="/static/pic/logo05.webp" loading="lazy" alt="" width="180.5" />
+                                    <img src="/static/pic/logo06.webp" loading="lazy" alt="" width="143" />
+                                    <img src="/static/pic/logo07.webp" loading="lazy" alt="" width="109.5" />
+                                    <img src="/static/pic/logo08.webp" loading="lazy" alt="" width="111" />
+                                </div>
+                            </div>
+                            <div class="infinite-text">
+                                <div class="infinite-text-wrapper bottom">
+                                    <div class="infinite-text-item infinite-text-bottom">СТАРТАПЫ</div>
+                                    <div class="infinite-text-item infinite-text-bottom">КОРПОРАЦИИ</div>
+                                    <div class="infinite-text-item infinite-text-bottom">ОБРАЗОВАНИЕ</div>
+                                    <div class="infinite-text-item infinite-text-bottom">
+                                        ПРЕДПРИЯТИЯ
+                                    </div>
+                                    <div class="infinite-text-item infinite-text-bottom">
+                                        ДИДЖИТАЛ&nbsp;АГЕНСТВА
+                                    </div>
+                                    <div class="infinite-text-item infinite-text-bottom">РИТЕЙЛ</div>
+                                    <div class="infinite-text-item infinite-text-bottom">
+                                        МЕДИА&nbsp;СТУДИИ
+                                    </div>
+                                    <div class="infinite-text-item infinite-text-bottom">SAAS</div>
+                                    <div class="infinite-text-item infinite-text-bottom">ФИНТЕХ</div>
+                                    <div class="infinite-text-item infinite-text-bottom">ФУДТЕХ</div>
+                                    <div class="infinite-text-item infinite-text-bottom">
+                                        СТРОИТЕЛЬНЫЙ&nbsp;БИЗНЕС
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="physics-slide" class="slide middle">
+                        <div class="worktype-layout">
+                            <h2 class="long">МЫ ПРАКТИЧЕСКИ НЕОГРАНИЧЕНЫ <br /> В ВЫБОРЕ ИНСТРУМЕНТОВ
+                            </h2>
+                            <h2 class="short">МЫ ПРАКТИЧЕСКИ НЕОГРАНИЧЕНЫ <br /> В ВЫБОРЕ ИНСТРУМЕНТОВ</h2>
+                        </div>
+                        <div class="matter-wrapper">
+                            <div class="matter-second-container"></div>
+                        </div>
+                        <div class="lottie-physics-wrapper"></div>
+                    </div>
+                    <div id="estimates-slide" class="slide middle">
+                        <div class="approach-layout">
+                            <div class="approach-content">
+                                <h2 class="long">
+                                    РАЗБИВАЕМ ПРОЕКТ НА СПРИНТЫ И ЭФФЕКТИВНО РАСПРЕДЕЛЯЕМ РАБОЧЕЕ ВРЕМЯ КОМАНДЫ В РАМКАХ БЮДЖЕТА
+                                </h2>
+
+                                <h2 class="short">
+                                    МЫ ЭФФЕКТИВНО РАСПРЕДЕЛЯЕМ ВРЕМЯ И БЮДЖЕТ КЛИЕНТА
+                                </h2>
+                            </div>
+                            <div class="estimate-cards-holder">
+                                <div class="estimate-cards-wrapper">
+                                    <img src="/static/pic/estimate-card-ru-01.png" loading="lazy" alt="" class="estimate-card" />
+                                    <img src="/static/pic/estimate-card-ru-02.png" loading="lazy" alt="" class="estimate-card" />
+                                    <img src="/static/pic/estimate-card-ru-03.png" loading="lazy" alt="" class="estimate-card" />
+                                    <img src="/static/pic/estimate-card-ru-01.png" loading="lazy" alt="" class="estimate-card" />
+                                    <img src="/static/pic/estimate-card-ru-02.png" loading="lazy" alt="" class="estimate-card" />
+                                    <img src="/static/pic/estimate-card-ru-03.png" loading="lazy" alt="" class="estimate-card" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="last-slide" class="slide middle">
+                        <div class="ending-layout">
+                            <h2>ЭТО ЛИШЬ ЧАСТЬ <br /> ПРЕЗЕНТАЦИИ</h2>
+                            <div class="download-presentation">
+                                <h3>ОТКРОЙТЕ ПОЛНУЮ ВЕРСИЮ В ФОРМАТЕ PDF</h3>
+                                <a class="arrow-svg" href="/static/radiance-ru.pdf" target="_blank">
+                                    <svg id="arrow-svg" width="64px" height="64px" viewbox="0 0 65 65" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle id="arrow-svg-background" cx="32.4724" cy="32.7634" r="31.9451"
+                                            fill="#191919" style="fill: rgb(0, 0, 0)"></circle>
+                                        <path id="arrow-svg-arrow"
+                                            d="M32.472 18.7402V38.9981M32.472 38.9981L41.0426 30.4275M32.472 38.9981L23.9014 30.4275"
+                                            stroke="#F5F2EE" stroke-width="1.5583"
+                                            style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"
+                                            data-svg-origin="23.901399612426758 18.74020004272461"
+                                            transform="matrix(1,0,0,1,0,1.5825)">
+                                        </path>
+                                        <path id="arrow-svg-line" d="M20.7852 46.7871H44.9387" stroke="#F5F2EE"
+                                            stroke-width="1.5583">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="ending-content">
+                            <div class="ending-background"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="portfolio-viewer">
+        <section id="portfolio-section" class="portfolio-section">
+            <div class="portfolio-welcome">
+                <div class="portfolio-welcome-content">
+                    <div class="heading-label">2023 - 2025<br/><br/></div>
+                    <h1>ЛУЧШИЕ РАБОТЫ</h1>
+                    <div class="welcome-wall"></div>
+                </div>
+
+            </div>
+            <div class="portfolio-slider-layout">
+                <div class="portfolio-work-tag">
+                    <div class="project-tag-heading">
+                        <h1 class="project-tag-a">СТРАТЕГИЯ</h1>
+                    </div>
+                    <div class="project-tag-heading">
+                        <h1 class="project-tag-b">ПРОДУКТ</h1>
+                    </div>
+                </div>
+                <div class="portfolio-slider-center">
+                    <div class="tilt-card-container">
+                        <div class="tilt-card">
+                            <a href="https://www.behance.net/gallery/199373991/SDK-Platform-bidapp-UXUI-Brand-Identity"
+                                target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tilt-card-container">
+                        <div class="tilt-card">
+                            <a href="https://www.behance.net/gallery/170376729/Units-Autonomous-Community"
+                                target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tilt-card-container">
+                        <div class="tilt-card">
+                            <a href="https://www.behance.net/gallery/131077809/Polemica-online-gaming-platform-rebranding"
+                                target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tilt-card-container">
+                        <div class="tilt-card">
+                            <a href="https://www.behance.net/gallery/145220925/Urban-Amenities-branding-for-modern-furniture-company"
+                                target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tilt-card-container">
+                        <div class="tilt-card">
+                            <a href="https://www.behance.net/gallery/147247443/Indievid-indie-music-label"
+                                target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tilt-card-container">
+                        <div class="tilt-card">
+                            <a href="https://www.behance.net/gallery/176041679/ScreenBlasters-Design-website-made-via-Readymag"
+                                target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-project-name">
+                    <div class="project-name-heading">
+                        <h1 class="project-name-a">BIDAPP</h1>
+                        <div class="project-year">2024</div>
+                    </div>
+                    <div class="project-name-heading">
+                        <h1 class="project-name-b">SDK</h1>
+                    </div>
+                </div>
+                <div class="portfolio-counter">01 / 06</div>
+                <div class="portfolio-cursor">ПОСМОТРЕТЬ</div>
+            </div>
+        </section>
+    </div>
+    </main>
+    <!-- Main Website -->
+
+    <!-- Footer Layout -->
+    <footer id="footer">
+        <div class="footer-layout">
+            <div class="email-container">
+                <a href="mailto:hello@radiance.family?subject=Let's%20share%20Radiance%20together"
+                    class="footer-email-link long">
+                    <h1 class="footer-heading">HELLO@RADIANCE.FAMILY</h1>
+                </a>
+                <div class="short footer-tap-halo">♪ TAP HALO ♪</div>
+                <h1 class="footer-heading short">Давайте прольём свет на ваш проект</h1>
+            </div>
+            <div class="footer-social-links">
+                <a class="animated-link" href="/privacy.html"><span>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</span></a>
+                <div class="footer-social-second-container">
+                    <a class="animated-link" href="https://www.behance.net/Radiancefamily"
+                        target="_blank"><span>BEHANCE</span></a>
+                    <a class="animated-link" href="https://www.instagram.com/designbyradiance/"
+                        target="_blank"><span>INSTAGRAM</span></a>
+                    <a class="animated-link" href="https://linkedin.com/company/designbyradiance"
+                        target="_blank"><span>LINKEDIN</span></a>
+                </div>
+            </div>
+
+            <div class="menu-link-buttons short">
+                <a href="mailto:hello@radiance.family?subject=Let's%20share%20Radiance%20together"
+                    class="menu-button-link pink-accent wide">
+                    <div class="text-block">HELLO@RADIANCE.FAMILY</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/designbyradiance/" target="_blank" class="menu-button-link">
+                    <div class="text-block">INSTAGRAM</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="https://t.me/Arturkay" target="_blank" class="menu-button-link  ">
+                    <div class="text-block">TELEGRAM</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="https://www.behance.net/Radiancefamily" target="_blank" class="menu-button-link  ">
+                    <div class="text-block">BEHANCE</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/company/designbyradiance/" target="_blank" class="menu-button-link">
+                    <div class="text-block">LINKEDIN</div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.96074 1.80252L0 8.76327L1.23673 10L8.19718 3.03955V9.38153H9.94619L9.94626 1.29047L10 1.23673L9.94626 1.18299L9.94626 0.053524L8.81679 0.0535202L8.76327 0L8.70975 0.0535202L0.618255 0.0535244V1.80252L6.96074 1.80252Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+
+        <!-- Fragment Shader for Godrays -->
+        <div class="canvas-embed ogl-godrays">
+            <script id="draw-shader-fs" type="x-shader/x-fragment">
+                precision mediump float;
+                uniform vec2 iResolution;
+                uniform vec2 iMouse;
+                uniform float iTime;
+                float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed)
+                {
+                    vec2 sourceToCoord = coord - raySource;
+                    float cosAngle = dot(normalize(sourceToCoord), rayRefDirection);
+                    return clamp(
+                        (0.45 + 0.15 * sin(cosAngle * seedA + iTime * speed)) +
+                        (0.3 + 0.2 * cos(-cosAngle * seedB + iTime * speed)),
+                        0.0, 1.0) *
+                        clamp((iResolution.x - length(sourceToCoord)) / iResolution.x, 0.5, 1.0);
+                }
+                void mainImage(out vec4 fragColor, in vec2 fragCoord)
+                {
+                        vec2 uv = fragCoord.xy / iResolution.xy;
+                    uv.y = 1.0 - uv.y;
+                    vec2 coord = vec2(fragCoord.x, iResolution.y - fragCoord.y);
+                    // Set the parameters of the sun rays
+                    vec2 rayPos1 = vec2(iResolution.x * 0.5, iResolution.y * 0.3);
+                    vec2 rayRefDir1 = normalize(vec2(1.0, -0.116));
+                    float raySeedA1 = 46.2;
+                    float raySeedB1 = 21.2;
+                    float raySpeed1 = 1.4;
+                    vec2 rayPos2 = vec2(iResolution.x * 0.5, iResolution.y * 0.3);
+                    vec2 rayRefDir2 = normalize(vec2(1.0, 0.241));
+                    const float raySeedA2 = 22.2;
+                    const float raySeedB2 = 18.0;
+                    const float raySpeed2 = 0.6;
+                    // Calculate the colour of the sun rays on the current fragment
+                    vec4 rays1 =
+                        vec4(1.0, 1.0, 0.918, 1.0) *
+                        rayStrength(rayPos1, rayRefDir1, coord, raySeedA1, raySeedB1, raySpeed1);
+                    vec4 rays2 =
+                        vec4(1.0, 1.0, 0.918, 1.0) *
+                        rayStrength(rayPos2, rayRefDir2, coord, raySeedA2, raySeedB2, raySpeed2);
+                    fragColor = rays1 * 0.3 + rays2 * 0.2;
+                    // Attenuate brightness towards the bottom, simulating light-loss due to depth.
+                    // Give the whole thing a blue-green tinge as well.
+                    float brightness = 0.9 - (coord.y / iResolution.y);
+                    fragColor.x *= 0.1 + (brightness * 1.0);
+                    fragColor.y *= 0.1 + (brightness * 1.0);
+                    fragColor.z *= 0.1 + (brightness * 1.0);
+                }
+                void main()
+                {
+                    mainImage( gl_FragColor, gl_FragCoord.xy );
+                }
+            </script>
+            <script id="draw-shader-vs" type="x-shader/x-vertex">
+                attribute vec2 inPos;
+                void main()
+                {
+                    gl_Position = vec4(inPos, 0.0, 1.0);
+                }
+            </script>
+            <div class="canvas-wrapper">
+                <canvas id="ogl-canvas" style="border: none"></canvas>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Layout -->
+
+
+
+    <!-- Audio Gospel -->
+    <audio id="gospel" src="/static/audio/radiance-gospel.mp3" muted></audio>
+</body>
+
+</html>
