@@ -112,7 +112,7 @@ if (document.documentElement.lang === "ru") {
         openMobile: "МЕНЮ",
         close: "ЗАКРЫТЬ",
         closeMobile: "ЗАКРЫТЬ",
-        briefMobile: "БРИФ"
+        briefMobile: "СВЯЗАТЬСЯ"
     }
 
     DESCRIPTOR_NAMES = [
@@ -244,12 +244,12 @@ contactSubmitButton.addEventListener("click", (e) => {
 briefButton.addEventListener("click", (e) => {
     openContactForm.play()
     formAnimation.time(0).kill()
-    console.log("briefButton Click")
+    console.log("MODAL OPEN")
 }, true)
 
 formCloseButton.addEventListener("click", (e) => {
     openContactForm.reverse()
-    console.log("briefButton Click")
+    console.log("MODAL CLOSE")
 }, true)
 
 

@@ -1063,9 +1063,22 @@ h2 {
 
 @media screen and (max-width: 540px) {
 
+    .contact-form {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
     .contacts-popup {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        gap: 0;
+        width: 100%;
+    }
+
+    .contacts-layout {
+        height: auto !important;
+    }
+
+    .contacts-popup-body {
+        border-radius: 0 !important;
     }
 
 }
