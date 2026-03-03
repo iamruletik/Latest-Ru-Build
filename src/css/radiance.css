@@ -1017,7 +1017,7 @@ h2 {
     right: 0;
     bottom: 0;
     color: var(--white);
-    font-size: 1em;
+    font-size: 1rem;
        backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -1040,7 +1040,7 @@ h2 {
 #contactForm {
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    gap: 1.5rem;
     overflow: hidden;
 }
 
@@ -1058,20 +1058,29 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    width: 25%;
+    width: 29rem;
+}
+
+@media screen and (max-width: 540px) {
+
+    .contacts-popup {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
 }
 
 .contacts-popup-body {
     background-color: #000000;
     padding: 0.75em;
-    border-radius: 1em;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
 .popup-padding {
-    padding: 1.25em !important;
+    padding: 1.25rem !important;
 }
 
 .contacts-popup-top {
@@ -1082,8 +1091,8 @@ h2 {
 }
 
 .contact-person {
-    height: 5em;
-    margin: 1.25em;
+    height: 5rem;
+    margin: 1.25rem;
 }
 
 .contact-person img {
@@ -1102,13 +1111,13 @@ h2 {
 }
 
 .contacts-message {
-    padding: 1em;
+    padding: 1rem;
     background-color: #ffffff40;
-    border-radius: 1.25em 1.25em 1.25em 0;
+    border-radius: 1.25rem 1.25rem 1.25rem 0;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 1rem;
     letter-spacing: 0;
-    line-height: 1.25em;
+    line-height: 1.25rem;
 }
 
 .contact-input {
@@ -1116,13 +1125,13 @@ h2 {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 0.25em;
-    padding: 0.5em;
+    gap: 0.25rem;
+    padding: 0.5rem;
 }
 
 .contact-input-label {
     border-radius: 0.25rem;
-    padding: 0.5em;
+    padding: 0.5rem;
     background-color: #ffffff40;
     font-size: 0.75rem;
     font-weight: 500;
@@ -1139,8 +1148,8 @@ h2 {
     margin: 0;
     border: none;
     color: var(--white);
-    padding: 0.5em 0;
-    font-size: 1em;
+    padding: 0.5rem 0;
+    font-size: 1rem;
     font-weight: 500;
     border-bottom: 2px solid #ffffff40;
     width: 100%;
@@ -1156,10 +1165,10 @@ h2 {
 
 .contact-submit-button {
     background-color: #FFD73B;
-    font-size: 0.75em;
+    font-size: 0.75rem;
     font-weight: 600;
     color: #000000;
-    padding: 1.5em;
+    padding: 1.5rem;
     width: 100%;
     outline: none;
     border-radius: 0.5rem;
@@ -1185,7 +1194,7 @@ h2 {
 
 .contact-simple-button {
     background-color: #ffffff40;
-    font-size: 0.75em;
+    font-size: 0.75rem;
     font-weight: 600;
     color: #ffffff;
     padding: 1.5em;
@@ -1203,7 +1212,7 @@ h2 {
 .contacts-button-group {
     display: flex;
     flex-direction: row;
-    gap: 0.75em;
+    gap: 0.75rem;
     opacity: 0;
     height: 0;
 }
