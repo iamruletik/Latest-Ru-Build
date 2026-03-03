@@ -144,54 +144,71 @@ if (document.documentElement.lang === "ru") {
 
 
 /*New Contact Form Script*/
-
-const handleSubmit = event => {
-  event.preventDefault();
-
-  const myForm = event.target;
-  const formData = new FormData(myForm);
+  const myForm = document.querySelector("#contactForm")
   const buttonGroup = document.querySelector(".contacts-button-group")
   const firstMessage = document.querySelector("#firstMessage")
   const lastMessage = document.querySelector("#lastMessage")
 
-  fetch("/", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(formData).toString()
-  })
-    .then(() => {
-        console.log(myForm)
-        console.log("Form successfully submitted")
+  let formAnimation = gsap.timeline().pause()
 
-        gsap.to(myForm, {
+          formAnimation.to(myForm, {
             height: 0,
             autoAlpha: 0,
             ease: "power2.inOut"
         })
 
-        gsap.to(buttonGroup, {
+        formAnimation.to(buttonGroup, {
             autoAlpha: 1,
             height: "auto",
             ease: "power2.inOut"
-        })
+        }, "<")
 
-        gsap.to(firstMessage, {
+        formAnimation.to(firstMessage, {
             height: 0,
             autoAlpha: 0,
             ease: "power2.inOut"
-        })
+        }, "<")
 
-        gsap.to(lastMessage, {
+        formAnimation.to(lastMessage, {
             autoAlpha: 1,
             height: "auto",
             ease: "power2.inOut"
+        }, "<")
+
+
+
+myForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // REPLACE THIS with your actual Cloud Function URL from the GCP Console
+            const FUNCTION_URL = "https://radiance-contact-1096616366730.asia-east1.run.app";
+
+            const payload = {
+                email: document.getElementById('your-email-field').value,
+                text: document.getElementById('your-comment-field').value,
+                name: document.getElementById('your-name-field').value,
+            };
+
+            try {
+                const response = await fetch(FUNCTION_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    //formAnimation.restart()
+                    console.log("✅ Email sent successfully!" + response.statusText)
+                    myForm.reset()
+                } else {
+                    //formAnimation.restart()
+                    console.log(response.statusText)
+                }
+            } catch (err) {
+                //formAnimation.restart()
+                console.error(err)
+            }
         })
-
-    } )
-    .catch( error => alert(error) );
-};
-
-document.querySelector("#contactForm").addEventListener("submit", handleSubmit);
 
 
 const formCloseButton = document.querySelector("#contact-form-close")
@@ -199,6 +216,7 @@ const noThanksButton = document.querySelector("#noThanksButton")
 const contactLayout = document.querySelector(".contacts-popup")
 const contactForm = document.querySelector("#contact-form")
 const briefButton = document.querySelector("#brief-button")
+const contactSubmitButton = document.querySelector("#contact-submit-button")
 
 let openContactForm = gsap.timeline().pause()
 
@@ -218,17 +236,26 @@ openContactForm.to(contactForm, {
                  }, "<")
 
 
+contactSubmitButton.addEventListener("click", (e) => {
+    formAnimation.restart()
+}, true)
+
+
 briefButton.addEventListener("click", (e) => {
     openContactForm.play()
+    formAnimation.time(0).kill()
+    console.log("briefButton Click")
 }, true)
 
 formCloseButton.addEventListener("click", (e) => {
     openContactForm.reverse()
+    console.log("briefButton Click")
 }, true)
 
 
 noThanksButton.addEventListener("click", (e) => {
     openContactForm.reverse()
+    console.log("noThanks")
 }, true)
 
 

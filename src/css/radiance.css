@@ -1022,6 +1022,12 @@ h2 {
     -webkit-backdrop-filter: blur(12px);
 }
 
+.contact-link {
+    text-decoration: underline;
+    text-underline-position: under;
+    color: inherit;
+}
+
 #contact-form {
     opacity: 0;
     visibility: hidden;
