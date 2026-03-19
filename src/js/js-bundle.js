@@ -22,6 +22,7 @@ const   DESKTOP_BREAKPOINT = window.matchMedia("(min-width: 768px)"),
         OGL_CANVAS = document.querySelector("#ogl-canvas"),
         DESCRIPTOR_CONTAINER = document.querySelector(".descriptor"),
         PRESENTATION_CARDS = document.querySelectorAll(".slide");
+        
 
 
 let DESCRIPTOR_NAMES = [
@@ -442,7 +443,7 @@ function resizeThreeCanvas(renderer) {
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
     if (needResize) {
-        renderer.setSize(width, height, false);
+        renderer.setSize(width, height, false); 
     }
     return needResize;
 }
@@ -861,7 +862,7 @@ if (DESKTOP_BREAKPOINT.matches) {
             frame: animation.totalFrames - 1,
             ease: "none",
             duration: 6,
-            onStart: () => { /*console.log(animation.totalFrames);*/ },
+            onStart: () => { console.log(animation.totalFrames); },
             onUpdate: () => animation.goToAndStop(playhead.frame, true),
         });
     });
@@ -991,6 +992,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
       });
 
       showLottiePhysics();
+      animateHorizontalCards();
       
       presentationTimeline.from(".team-background", {
         scale: 0.075,
@@ -1049,10 +1051,34 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
+//Horizontal Animation for Cards
+function animateHorizontalCards() {
+    
+    let cardWrapper = document.querySelector(".estimate-cards-wrapper")
+    let cardWrapperParent = document.querySelector(".approach-layout")
+
+    console.log(cardWrapper.offsetWidth)
+    console.log(cardWrapperParent.offsetWidth)
+
+    let cardsOffset = cardWrapper.offsetWidth / 2
+
+    gsap.to(cardWrapper, {
+        x: -cardsOffset,
+        repeat: -1,
+        duration: 20,
+        ease: "none"
+    })
+
+
+}
+
+
 //LOTTIE PHYSICS FOR PRESENTATION
 function showLottiePhysics() {
     
     let animationPath = "/static/lottie-physics.json";
+
+    console.log(DESKTOP_BREAKPOINT.matches)
 
     if (DESKTOP_BREAKPOINT.matches == false) {
         animationPath = "/static/lottie-physics-mobile.json";
@@ -1077,12 +1103,13 @@ function showLottiePhysics() {
               trigger: "#estimates-slide",
               start: "top top",
               end: "+=3000",
-              toggleActions: "play reset play reset"
+              toggleActions: "play reset play reset",
+              markers: true
           },
           frame: animation.totalFrames - 1,
           ease: "none",
           duration: 6,
-          onStart: () => { /*console.log(animation.totalFrames);*/},
+          onStart: () => { console.log(animation.totalFrames);},
           onUpdate: () => animation.goToAndStop(playhead.frame, true),
       });
   });

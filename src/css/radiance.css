@@ -265,6 +265,7 @@ h2 {
 
 .hero-heading {
     position: relative;
+    font-size: 1.75em;
 }
 
 .hero-heading-mobile {
@@ -760,6 +761,9 @@ h2 {
     text-align: center;
 }
 
+
+
+
 .about-accolades {
     display: flex;
     flex-direction: row;
@@ -823,6 +827,35 @@ h2 {
 .about-client-logo {
     width: auto;
     height: 2em;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .about-heading {
+        font-size: 7em;
+    }
+
+    .about-accolades {
+        gap: 6em;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: 24em;
+    }
+
+    .text-award {
+        font-size: 2.4em;
+    }
+
+    .about-clients-headline {
+        display: none;
+    }
+
+    .about-client-logo {
+        height: 3em;
+    }
+
 }
 
 
@@ -1052,6 +1085,7 @@ h2 {
     align-content: center;
     width: 100%;
     height: 100%;
+    min-height: 100%;
 }
 
 .contacts-popup {

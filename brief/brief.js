@@ -80,6 +80,68 @@ document.addEventListener('keydown', event => {
 
 
 
+
+//Cloud function to send form
+mainForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // REPLACE THIS with your actual Cloud Function URL from the GCP Console
+            const FUNCTION_URL = "https://radiance-ru-brief-1096616366730.asia-east1.run.app";
+
+
+
+
+            const payload = {
+                client: document.getElementById('field-1').value,
+                contacts: document.getElementById('field8').value,
+                worktype: returnCheckboxes('step-3'),
+                addinfo: document.getElementById('field5').value,
+                budget: returnCheckboxes('step-5'),
+                references: document.getElementById('field6').value,
+                yearbudget: document.getElementById('field7').value,
+                marketing: document.getElementById('field9').value,
+                lastfield: document.getElementById('field10').value,
+                
+            };
+
+            try {
+                const response = await fetch(FUNCTION_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    //formAnimation.restart()
+                    console.log("✅ Email sent successfully!" + response.statusText)
+                    mainForm.reset()
+                } else {
+                    //formAnimation.restart()
+                    console.log(response.statusText)
+                }
+            } catch (err) {
+                //formAnimation.restart()
+                console.error(err)
+            }
+        })
+
+function returnCheckboxes(stepId) {
+        let step = document.getElementById(stepId);
+        let checkboxes = step.querySelectorAll('.checkbox-input');
+        let data = []
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                data.push(checkbox.value)
+            }
+            console.log(data)
+        })
+        console.log(data);
+
+        return data;
+}
+
+
     
 prevButton.addEventListener("click", (event) => { previousQuestion() }, true);
 
