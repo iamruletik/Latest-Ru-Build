@@ -30,7 +30,7 @@ if (lang === 'de') {
 
 if (lang === 'ru') {
 
-    document.querySelector("#back-link").href = '/ru/'
+    document.querySelector("#back-link").href = '/'
 
     document.querySelectorAll('[data-lang="ru"]').forEach((element) => {
         element.style.display = ''
@@ -57,7 +57,9 @@ let formCounter = document.querySelector(".current-question");
 let progressBar = document.querySelector(".progress-bar");
 let currentPos = 0;
 let currentIndex = 1;
-let questionNumber = 10;
+let questionNumber = 9;
+
+console.log(localStorage.getItem("userMail"))
 
 gsap.set(prevButton, {autoAlpha: 0});
 
@@ -92,16 +94,16 @@ mainForm.addEventListener('submit', async (e) => {
 
 
             const payload = {
-                client: document.getElementById('field-1').value,
-                contacts: document.getElementById('field8').value,
+                client: localStorage.getItem("userName"),
+                usertext: localStorage.getItem("userText"),
+                userMail: localStorage.getItem("userMail"),
                 worktype: returnCheckboxes('step-3'),
                 addinfo: document.getElementById('field5').value,
                 budget: returnCheckboxes('step-5'),
                 references: document.getElementById('field6').value,
                 yearbudget: document.getElementById('field7').value,
                 marketing: document.getElementById('field9').value,
-                lastfield: document.getElementById('field10').value,
-                
+                lastfield: document.getElementById('field10').value
             };
 
             try {
@@ -114,6 +116,7 @@ mainForm.addEventListener('submit', async (e) => {
                 if (response.ok) {
                     //formAnimation.restart()
                     console.log("✅ Email sent successfully!" + response.statusText)
+                    window.location.href = "/brief/success/"
                     mainForm.reset()
                 } else {
                     //formAnimation.restart()
@@ -152,7 +155,7 @@ nextButtons.forEach((element) => {
 
 function nextQuestion() {
         
-    let windowHeight = mainForm.offsetHeight / 9;
+    let windowHeight = mainForm.offsetHeight / (questionNumber - 1);
 
     console.log(windowHeight + "px");
     if (currentIndex > 0 ) {
@@ -169,12 +172,12 @@ function nextQuestion() {
         width: window.innerWidth / questionNumber * currentIndex
     });
     formCounter.innerHTML = currentIndex;
-    // console.log(currentIndex);
+    console.log(windowHeight);
 }
 
 function previousQuestion() {
     
-    let windowHeight = mainForm.offsetHeight / 9;
+    let windowHeight = mainForm.offsetHeight / (questionNumber - 1);
 
     if (currentIndex == 2 ) {
         gsap.to(prevButton, {autoAlpha: 0});

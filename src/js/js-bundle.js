@@ -146,7 +146,7 @@ if (document.documentElement.lang === "ru") {
 
 /*New Contact Form Script*/
   const myForm = document.querySelector("#contactForm")
-  const buttonGroup = document.querySelector(".contacts-button-group")
+  //const buttonGroup = document.querySelector(".contacts-button-group")
   const firstMessage = document.querySelector("#firstMessage")
   const lastMessage = document.querySelector("#lastMessage")
 
@@ -158,13 +158,19 @@ if (document.documentElement.lang === "ru") {
             ease: "power2.inOut"
         })
 
-        formAnimation.to(buttonGroup, {
+        /*formAnimation.to(buttonGroup, {
             autoAlpha: 1,
             height: "auto",
             ease: "power2.inOut"
-        }, "<")
+        }, "<")*/
 
         formAnimation.to(firstMessage, {
+            height: 0,
+            autoAlpha: 0,
+            ease: "power2.inOut"
+        }, "<")
+
+        formAnimation.to("#bottom-popup-part", {
             height: 0,
             autoAlpha: 0,
             ease: "power2.inOut"
@@ -180,6 +186,10 @@ if (document.documentElement.lang === "ru") {
 
 myForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            localStorage.setItem("userMail", document.getElementById('your-email-field').value)
+            localStorage.setItem("userName", document.getElementById('your-name-field').value)
+            localStorage.setItem("userText", document.getElementById('your-comment-field').value)
             
             // REPLACE THIS with your actual Cloud Function URL from the GCP Console
             const FUNCTION_URL = "https://radiance-contact-1096616366730.asia-east1.run.app";
@@ -200,6 +210,8 @@ myForm.addEventListener('submit', async (e) => {
                 if (response.ok) {
                     //formAnimation.restart()
                     console.log("✅ Email sent successfully!" + response.statusText)
+                    window.location.href = "/brief/?lang=ru"
+                    //window.location.replace("/brief/?lang=ru")
                     myForm.reset()
                 } else {
                     //formAnimation.restart()
@@ -213,7 +225,7 @@ myForm.addEventListener('submit', async (e) => {
 
 
 const formCloseButton = document.querySelector("#contact-form-close")
-const noThanksButton = document.querySelector("#noThanksButton")
+//const noThanksButton = document.querySelector("#noThanksButton")
 const contactLayout = document.querySelector(".contacts-popup")
 const contactForm = document.querySelector("#contact-form")
 const briefButton = document.querySelector("#brief-button")
@@ -254,10 +266,10 @@ formCloseButton.addEventListener("click", (e) => {
 }, true)
 
 
-noThanksButton.addEventListener("click", (e) => {
+/*noThanksButton.addEventListener("click", (e) => {
     openContactForm.reverse()
     console.log("noThanks")
-}, true)
+}, true)*/
 
 
 
@@ -1098,13 +1110,14 @@ function showLottiePhysics() {
       });
 
   animation.addEventListener("DOMLoaded", function () {
+    ScrollTrigger.refresh()
       gsap.to(playhead, {
           scrollTrigger: {
-              trigger: "#estimates-slide",
-              start: "top top",
-              end: "+=3000",
+              trigger: "#greetings-slide",
+              start: "+=2000",
+              end: "+=5000",
               toggleActions: "play reset play reset",
-              markers: true
+              //markers: true
           },
           frame: animation.totalFrames - 1,
           ease: "none",

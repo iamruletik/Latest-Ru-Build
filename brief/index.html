@@ -12,6 +12,73 @@
     <link href="/static/pic/webclip.png" rel="apple-touch-icon" />
     <script defer src="/src/js/libs/gsap.min.js"></script>
     <script defer src="brief.js"></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '963665372745866');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=963665372745866&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+     <!-- UTM Save-->
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+
+            const keys = [
+            'utm_source',
+            'utm_medium',
+            'utm_campaign',
+            'utm_content',
+            'utm_term',
+            'fbclid'
+            ];
+
+            keys.forEach(key => {
+            if (params.get(key)) {
+                localStorage.setItem(key, params.get(key));
+            }
+            });
+        })();
+    </script>
+    <!-- End UTM Save -->
+
+    <script>
+        fbq('track', 'Lead', {
+            eventID: localStorage.getItem('event_id'),
+            utm_source: localStorage.getItem('utm_source'),
+            utm_medium: localStorage.getItem('utm_medium'),
+            utm_campaign: localStorage.getItem('utm_campaign'),
+            utm_content: localStorage.getItem('utm_content'),
+            utm_term: localStorage.getItem('utm_term'),
+            content_name: 'website_lead'
+        });
+    </script>
+
+
+    <!-- Event ID-->
+    <script>
+        (function() {
+            if (!localStorage.getItem('event_id')) {
+            localStorage.setItem('event_id', 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9));
+            }
+        })();
+    </script>
+    <!-- End Event ID -->
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q95NQS2Q0W"></script>
     <script>
@@ -21,23 +88,6 @@
 
     gtag('config', 'G-Q95NQS2Q0W');
     </script>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-    
-        ym(98861322, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98861322" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 
 <body>
@@ -83,21 +133,21 @@
                     Hello! We are Radiance team. <br/> Would you like introduce yourself?
                 </label>
                 <label data-lang="ru" style="display:none;">
-                   Здравствуйте! Мы - команда Radiance. <br/> Как вас зовут?
+                    Спасибо за обращение! Пока мы отвечаем вы можете заполнить бриф проекта
                 </label>
                 <label data-lang="de" style="display:none;">
                     Hallo! Wir sind das Radiance-Team. <br/> Möchten Sie sich vorstellen?
                 </label>
-                <textarea oninput="auto_grow(this)" rows="1" id="field-1" required type="text" name="Client"
-                    placeholder="Type your answer here"></textarea>
+                <!--<textarea oninput="auto_grow(this)" rows="1" id="field-1" required type="text" name="Client"
+                    placeholder="Type your answer here"></textarea>-->
                 <div id="next-1" class="next-question step-button">
                     <span data-lang="en" style="display:none;">Next</span>
                     <span data-lang="de" style="display:none;">Nächster</span>
-                    <span data-lang="ru" style="display:none;">Дальше</span>
+                    <span data-lang="ru" style="display:none;">Продолжить</span>
                 </div>
             </div>
 
-            <div id="step-8" class="form-step">
+            <!--<div id="step-8" class="form-step">
                 <label>
                     <span data-lang="en" style="display:none;">Specify a convenient way<br/>to get in touch</span>
                     <span data-lang="de" style="display:none;">Wie kann man Sie am besten erreichen?</span>
@@ -110,7 +160,7 @@
                     <span data-lang="de" style="display:none;">Nächster</span>
                     <span data-lang="ru" style="display:none;">Дальше</span>
                 </div>
-            </div>
+            </div>-->
 
 
             <div id="step-3" class="form-step">
@@ -294,7 +344,7 @@
                 <label>
                     <span data-lang="en" style="display:none;">What was your advertising budget for 2024?</span>
                     <span data-lang="de" style="display:none;">Wie hoch war Ihr Werbebudget für 2024?</span>
-                    <span data-lang="ru" style="display:none;">Каков был ваш рекламный бюджет на 2024 год?</span>
+                    <span data-lang="ru" style="display:none;">Каков был ваш рекламный бюджет за последний год? </span>
                 </label>
                 <textarea oninput="auto_grow(this)" rows="1" id="field7" required type="text" name="More Info"
                     placeholder="Type your answer here"></textarea>
